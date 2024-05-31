@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "9774358121",
+    "project_id": "geminidietmaster",
+    "storage_bucket": "geminidietmaster.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:9774358121:android:af223d0a1780ede2154cf8",
+        "android_client_info": {
+          "package_name": "com.arrijal"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAVJdQLoSzziOT9r_Wl10rRIiHzOGlqd_4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
