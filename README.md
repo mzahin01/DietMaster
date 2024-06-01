@@ -1,6 +1,6 @@
 # diet_master
 
-A new Flutter project.
+A project on Diet.
 
 ## Getting Started
 
