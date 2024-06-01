@@ -35,6 +35,20 @@ class MainPageView extends GetView<MainPageController> {
                   textAlign: TextAlign.center,
                 ),
               ),
+              ElevatedButton(
+                onPressed: controller.pickImage,
+                child: const Text('Pick Image from Gallery'),
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              ElevatedButton(
+                onPressed: controller.captureImage,
+                child: const Text('Capture Image from Camera'),
+              ),
+              const SizedBox(
+                height: 10,
+              ),
               MaterialButton(
                 onPressed: () {
                   controller.getRes();
@@ -42,6 +56,40 @@ class MainPageView extends GetView<MainPageController> {
                 color: Colors.amberAccent,
                 child: const Text('Generate'),
               ),
+              const SizedBox(height: 10),
+              Expanded(
+                child: GridView.builder(
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 4,
+                    crossAxisSpacing: 4.0,
+                    mainAxisSpacing: 4.0,
+                  ),
+                  itemCount: controller.images.length,
+                  itemBuilder: (context, index) {
+                    return Stack(
+                      children: [
+                        Image.file(
+                          controller.images[index],
+                          fit: BoxFit.cover,
+                        ),
+                        Positioned(
+                          top: 0,
+                          left: 0,
+                          child: IconButton(
+                            padding: EdgeInsets.zero,
+                            icon: const Icon(Icons.delete),
+                            color: Colors.white,
+                            onPressed: () {
+                              controller.images.removeAt(index);
+                            },
+                          ),
+                        )
+                      ],
+                    );
+                  },
+                ),
+              ),
+              const SizedBox(height: 50),
               if (controller.user.value == null) ...[
                 ElevatedButton(
                   onPressed: () {
