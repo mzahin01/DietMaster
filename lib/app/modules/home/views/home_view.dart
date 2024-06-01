@@ -27,8 +27,20 @@ class MainPageView extends GetView<MainPageController> {
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const SizedBox(
-                height: 200,
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: TextField(
+                  controller: controller.geminiTextController,
+                  maxLines: null,
+                  textAlign: TextAlign.center,
+                ),
+              ),
+              MaterialButton(
+                onPressed: () {
+                  controller.getRes();
+                },
+                color: Colors.amberAccent,
+                child: const Text('Generate'),
               ),
               if (controller.user.value == null) ...[
                 ElevatedButton(

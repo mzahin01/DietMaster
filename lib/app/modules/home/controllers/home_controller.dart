@@ -1,10 +1,16 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:diet_master/app/shared/consts.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_generative_ai/google_generative_ai.dart';
 
 class MainPageController extends GetxController {
   Rx<User?> user = Rx(null);
   RxnString username = RxnString();
+
+  TextEditingController geminiTextController = TextEditingController();
+  String? filePath;
 
   @override
   void onInit() {
@@ -12,6 +18,10 @@ class MainPageController extends GetxController {
       user.value = u;
       getUserName(u);
     });
+    model = GenerativeModel(
+      model: 'gemini-1.5-flash',
+      apiKey: Helper.gemeniApiKey,
+    );
     super.onInit();
   }
 
@@ -24,5 +34,43 @@ class MainPageController extends GetxController {
         .doc(user.uid)
         .get();
     username.value = data.data()?['name'];
+  }
+
+  GenerativeModel? model;
+
+  void getRes() async {
+    GenerateContentResponse? res = await model?.generateContent(
+      [
+        Content.text(
+          geminiTextController.text,
+        )
+      ],
+    );
+    if (res?.text != null) {
+      Get.dialog(
+        AlertDialog(
+          title: const Text('Gemini Response'),
+          content: SizedBox(
+            width: double.maxFinite,
+            child: SingleChildScrollView(
+              child: Text(
+                res!.text!,
+              ),
+            ),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Get.back();
+              },
+              child: const Text('Close'),
+            ),
+          ],
+        ),
+        barrierDismissible: false,
+      );
+    } else {
+      return null;
+    }
   }
 }
